@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<meta name="ext-resource-dependency" content="images/chassis-deform-combined.jpg" data-resource-id="chassis-deform-combined">
+<meta name="ext-resource-dependency" content="images/chassis-deform-baseline.jpg" data-resource-id="chassis-deform-baseline">
+<meta name="ext-resource-dependency" content="images/chassis-load.jpg" data-resource-id="chassis-load">
+<meta name="ext-resource-dependency" content="images/chassis-accumulator.jpg" data-resource-id="chassis-accumulator">
+<meta name="ext-resource-dependency" content="images/chassis-mesh-panels.jpg" data-resource-id="chassis-mesh-panels">
+<meta name="ext-resource-dependency" content="images/chassis-mesh-frame.jpg" data-resource-id="chassis-mesh-frame">
+<meta name="ext-resource-dependency" content="images/gantry-hero.jpg" data-resource-id="gantry-hero">
+<meta name="ext-resource-dependency" content="images/gantry-frame-cad.jpg" data-resource-id="gantry-frame-cad">
+<meta name="ext-resource-dependency" content="images/gantry-hopper-cad.jpg" data-resource-id="gantry-hopper-cad">
+<meta name="ext-resource-dependency" content="images/gantry-annotated.jpg" data-resource-id="gantry-annotated">
+<meta name="ext-resource-dependency" content="media/chassis-loop.mp4" data-resource-id="chassis-loop">
+<meta name="ext-resource-dependency" content="images/v6-what.jpg" data-resource-id="v6-what">
+<meta name="ext-resource-dependency" content="images/v6-how-1.jpg" data-resource-id="v6-how-1">
+<meta name="ext-resource-dependency" content="images/v6-how-2.jpg" data-resource-id="v6-how-2">
+<meta name="ext-resource-dependency" content="images/v6-result-new.jpg" data-resource-id="v6-result-new">
+<meta name="ext-resource-dependency" content="images/carelink-what.jpg" data-resource-id="carelink-what">
+<meta name="ext-resource-dependency" content="images/carelink-how.jpg" data-resource-id="carelink-how">
+<meta name="ext-resource-dependency" content="images/carelink-result.jpg" data-resource-id="carelink-result">
+<meta name="ext-resource-dependency" content="docs/Danyal-Gu-Resume.pdf" data-resource-id="resume-pdf">
+<meta name="ext-resource-dependency" content="docs/Danyal-Gu-Portfolio.pdf" data-resource-id="portfolio-pdf">
+<title>Danyal Gu — Mechanical Engineering</title>
+<meta name="description" content="Danyal Gu — Mechanical Engineering at the University of Waterloo. FSAE chassis analysis, CFD research, and mechanical design co-op work.">
+<style>
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:#14130f; color:#ece5d7; font-family:'Archivo',system-ui,sans-serif; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+  figcaption{ -webkit-font-smoothing:subpixel-antialiased; }
+  a{ color:var(--acc,#9ecbdb); text-decoration:none; }
+  a:hover{ color:#c4e3ee; }
+  img{ display:block; max-width:100%; }
+  ::selection{ background:var(--acc,#9ecbdb); color:#fdfaf6; }
+  input,textarea,button{ font-family:inherit; }
+  @keyframes riseIn{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:none; } }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+</style>
+</helmet>
+<template id="__bundler_thumbnail">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" data-bg-color="#14130f"><rect width="400" height="300" fill="#14130f"></rect><circle cx="200" cy="150" r="58" fill="none" stroke="#9ecbdb" stroke-width="6"></circle><circle cx="200" cy="150" r="16" fill="#9ecbdb"></circle></svg>
+</template>
+
+<div style="min-height:100vh; background:#14130f; color:#ece5d7; font-family:'Archivo',system-ui,sans-serif; overflow-x:hidden">
+
+  <nav style="position:sticky; top:0; z-index:40; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px clamp(18px,5vw,64px); background:rgba(20,19,15,0.86); backdrop-filter:blur(12px); border-bottom:1px solid #302c23">
+    <a href="#/" style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.14em; color:#ece5d7; text-transform:uppercase">Danyal Gu</a>
+    <div style="display:flex; align-items:center; gap:clamp(14px,2.4vw,30px)">
+      <a href="#/work" style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.12em; color:#938976; text-transform:uppercase" style-hover="color:#ece5d7">Work</a>
+      <a href="#/about" style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.12em; color:#938976; text-transform:uppercase" style-hover="color:#ece5d7">About</a>
+      <a href="#/contact" style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.12em; color:#938976; text-transform:uppercase" style-hover="color:#ece5d7">Contact</a>
+      <a href="#/" onClick="{{ openPortfolio }}" style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.12em; color:#cfc6b4; border:1px solid #463f33; padding:8px 14px; border-radius:3px; text-transform:uppercase; white-space:nowrap" style-hover="border-color:#6e6350; background:#1e1c16; color:#ece5d7">Portfolio</a>
+      <a href="#/" onClick="{{ openResume }}" style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.12em; color:#14130f; background:#9ecbdb; padding:9px 15px; border-radius:3px; text-transform:uppercase; white-space:nowrap" style-hover="background:#b6dbe8; color:#fdfaf6">Resume</a>
+    </div>
+  </nav>
+
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <div>
+
+    <header style="background:linear-gradient(180deg,#1c1a15 0%,#14130f 72%); padding:clamp(44px,7vw,96px) clamp(18px,5vw,64px) clamp(48px,7vw,92px)">
+      <div style="max-width:1280px; margin:0 auto">
+        <div style="display:flex; flex-direction:column; align-items:center; text-align:center">
+          <p style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.2em; color:var(--acc,#9ecbdb); text-transform:uppercase; margin:0 0 clamp(18px,2.6vw,28px)">Engineering Portfolio · 2026</p>
+          <h1 style="font-family:'Instrument Serif',Georgia,serif; font-size:clamp(60px,13vw,150px); font-weight:400; letter-spacing:-0.025em; line-height:0.9; margin:0; color:#f4eee2">Danyal Gu</h1>
+          <p style="font-family:'JetBrains Mono',monospace; font-size:clamp(13px,1.5vw,15px); letter-spacing:0.06em; color:#b5ab98; margin:clamp(20px,2.8vw,30px) 0 0">2A Mechanical Engineering · University of Waterloo</p>
+          <p style="font-size:clamp(16px,1.8vw,19px); line-height:1.6; color:#bcb2a0; max-width:48ch; margin:16px 0 0; text-wrap:pretty"></p>
+          <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:14px; margin-top:clamp(28px,4vw,40px)">
+            <a href="#/" onClick="{{ openResume }}" style="display:inline-flex; align-items:center; gap:14px; background:#9ecbdb; color:#14130f; border-radius:4px; padding:19px 30px; min-height:58px; box-shadow:0 10px 26px rgba(0,0,0,0.55); transition:transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease" style-hover="transform:translateY(-2px); box-shadow:0 16px 34px rgba(0,0,0,0.62); background:#b6dbe8; color:#fdfaf6">
+              <span style="font-family:'JetBrains Mono',monospace; font-size:14px; letter-spacing:0.16em; text-transform:uppercase; color:#14130f">Resume</span>
+              <span style="font-family:'JetBrains Mono',monospace; font-size:16px; color:#14262e">↗</span>
+            </a>
+            <a href="#/" onClick="{{ openPortfolio }}" style="display:inline-flex; align-items:center; gap:14px; border:1px solid #463f33; color:#cfc6b4; border-radius:4px; padding:18px 28px; min-height:58px; transition:border-color 0.16s ease, background 0.16s ease" style-hover="border-color:#6e6350; background:#221f18; color:#ece5d7">
+              <span style="font-family:'JetBrains Mono',monospace; font-size:14px; letter-spacing:0.16em; text-transform:uppercase">Portfolio</span>
+              <span style="font-family:'JetBrains Mono',monospace; font-size:16px; color:var(--acc,#9ecbdb)">↗</span>
+            </a>
+            <a href="#/work" style="display:inline-flex; align-items:center; gap:10px; border:1px solid #463f33; color:#cfc6b4; border-radius:4px; padding:18px 26px; min-height:58px; transition:border-color 0.16s ease, background 0.16s ease" style-hover="border-color:#6e6350; background:#221f18; color:#ece5d7">
+              <span style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.14em; text-transform:uppercase">View work</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </header>
+
+    <section id="work" style="border-top:1px solid #302c23; padding:clamp(48px,6vw,84px) clamp(18px,5vw,64px) clamp(60px,8vw,110px)">
+      <div style="max-width:1280px; margin:0 auto">
+        <div style="display:flex; align-items:baseline; justify-content:space-between; gap:20px; flex-wrap:wrap; margin-bottom:clamp(28px,4vw,48px)">
+          <h2 style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.2em; color:#938976; text-transform:uppercase; font-weight:400; margin:0">Selected Work</h2>
+          <p style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.08em; color:#9a9180; margin:0">Tap any project for the full breakdown</p>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:clamp(18px,2.4vw,30px)">
+          <sc-for list="{{ projects }}" as="p" hint-placeholder-count="6">
+            <a href="{{ p.href }}" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 380px), 1fr)); border:1px solid #3a342a; border-radius:6px; overflow:hidden; background:#1e1c16; color:#ece5d7; box-shadow:0 3px 12px rgba(0,0,0,0.32); transition:box-shadow 0.22s ease, transform 0.22s ease, border-color 0.22s ease" style-hover="box-shadow:0 20px 44px rgba(0,0,0,0.5); transform:translateY(-4px); border-color:#8a7a5e">
+              <div style="{{ p.panelStyle }}">
+                <sc-for list="{{ p.coverImageList }}" as="ci" hint-placeholder-count="1">
+                  <img data-res="{{ ci.res }}" alt="{{ p.title }}" loading="lazy" style="width:100%; height:100%; object-fit:contain; padding:3%">
+                </sc-for>
+                <sc-for list="{{ p.coverVideoList }}" as="cv" hint-placeholder-count="0">
+                  <video data-res="{{ cv.res }}" autoPlay="autoPlay" muted="muted" loop="loop" playsInline="playsInline" preload="auto" tabIndex="-1" style="width:100%; height:100%; object-fit:contain; padding:9% 2% 2%; display:block; margin:0 auto; pointer-events:none"></video>
+                </sc-for>
+                <div style="{{ p.vignetteStyle }}"></div>
+                <span style="{{ p.tagStyle }}">{{ p.tag }}</span>
+              </div>
+              <div style="display:flex; flex-direction:column; justify-content:center; gap:14px; padding:clamp(24px,3vw,44px)">
+                <span style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.16em; color:var(--acc,#9ecbdb)">{{ p.num }}</span>
+                <h3 style="font-family:'Instrument Serif',Georgia,serif; font-size:clamp(28px,3.4vw,42px); font-weight:400; letter-spacing:-0.015em; line-height:1.06; margin:0; color:#f4eee2; max-width:18ch">{{ p.title }}</h3>
+                <p style="font-size:16px; line-height:1.6; color:#bcb2a0; margin:0; max-width:44ch; text-wrap:pretty">{{ p.blurb }}</p>
+                <p style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.07em; color:#9a9180; margin:0">{{ p.meta }}</p>
+                <span style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--acc,#9ecbdb); margin-top:6px">View project →</span>
+              </div>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" style="border-top:1px solid #302c23; background:#1b1915; padding:clamp(48px,6vw,84px) clamp(18px,5vw,64px)">
+      <div style="max-width:1280px; margin:0 auto">
+        <h2 style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.2em; color:#938976; text-transform:uppercase; font-weight:400; margin:0 0 clamp(22px,3vw,34px)">About</h2>
+        <div style="max-width:none">
+          <p style="font-size: clamp(17px,2vw,22px); line-height: 1.6; color: #ddd5c6; margin: 0 0 clamp(24px,3vw,34px); text-wrap: pretty">Mechanical Engineering at the University of Waterloo. I like the full arc: a model, a simulation, a machined part, and a number at the end that says whether it worked.</p>
+          <ul style="margin:0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap:clamp(14px,2vw,26px)">
+            <li style="border-top:1px solid #3a342a; padding-top:14px">
+              <p style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--acc,#9ecbdb); margin:0 0 9px">Now</p>
+              <p style="font-size:16px; line-height:1.6; color:#ddd5c6; margin:0">CFD and flow simulation research in Prof. Jean-Pierre Hickey's MPI Lab, through the President's Research Award.</p>
+            </li>
+            
+            <li style="border-top:1px solid #3a342a; padding-top:14px">
+              <p style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--acc,#9ecbdb); margin:0 0 9px">Last co-op</p>
+              <p style="font-size:16px; line-height:1.6; color:#ddd5c6; margin:0">TK Modular Systems, Oakville. Process skids in PTC Creo and 450+ drawings released through Windchill.</p>
+            </li>
+            <li style="border-top:1px solid #3a342a; padding-top:14px">
+              <p style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--acc,#9ecbdb); margin:0 0 9px">Aiming at</p>
+              <p style="font-size:16px; line-height:1.6; color:#ddd5c6; margin:0">Large scale energy and process systems, where simulation and hardware have to agree.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" style="border-top:1px solid #302c23; background:#1b1915; padding:clamp(48px,6vw,84px) clamp(18px,5vw,64px) clamp(60px,8vw,100px)">
+      <div style="max-width:1280px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap:clamp(30px,4vw,64px); align-items:start">
+        
+        <sc-if value="{{ showContactForm }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <h2 style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.2em; color:#938976; text-transform:uppercase; font-weight:400; margin:0 0 24px">Contact</h2>
+          <p style="font-family: 'Instrument Serif',Georgia,serif; font-size: clamp(30px,4.4vw,40px); font-weight: 400; letter-spacing: -0.015em; line-height: 1.08; margin: 0 0 22px; color: #f4eee2; font-style: normal; text-align: left">Open to co-op roles in mechanical design and simulation in energy, automotive, or aerospace industries</p>
+          <div style="display:flex; flex-direction:column; gap:12px; margin-top:28px">
+            <a href="mailto:d28gu@uwaterloo.ca" style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.05em; color:#cfc6b4" style-hover="color:#9ecbdb">d28gu@uwaterloo.ca</a>
+            <a href="https://www.linkedin.com/in/danyalgu" target="_blank" rel="noopener" style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.05em; color:#cfc6b4" style-hover="color:#9ecbdb">linkedin.com/in/danyalgu</a>
+            <span style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.05em; color:#8b8270">+1 514-476-0624</span>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:34px">
+            <a href="#/" onClick="{{ openResume }}" style="display:inline-flex; align-items:center; gap:12px; font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.14em; text-transform:uppercase; color:#14130f; background:#9ecbdb; padding:16px 24px; border-radius:4px; min-height:52px; box-shadow:0 8px 20px rgba(0,0,0,0.5); transition:transform 0.16s ease, box-shadow 0.16s ease" style-hover="transform:translateY(-2px); box-shadow:0 14px 28px rgba(0,0,0,0.58); color:#fdfaf6">Resume PDF ↗</a>
+            <a href="#/" onClick="{{ openPortfolio }}" style="display:inline-flex; align-items:center; font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.14em; text-transform:uppercase; color:#cfc6b4; border:1px solid #463f33; padding:16px 24px; border-radius:4px; min-height:52px" style-hover="border-color:#6e6350; background:#1e1c16; color:#ece5d7">Portfolio PDF ↗</a>
+          </div>
+        </div><form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" style="display:flex; flex-direction:column; gap:14px; border:1px solid #353026; border-radius:4px; padding:clamp(20px,2.6vw,30px); background:#1e1c16">
+          <label style="display:flex; flex-direction:column; gap:7px">
+            <span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.12em; color:#938976; text-transform:uppercase">Name</span>
+            <input type="text" name="name" required="required" style="background:#191710; border:1px solid #3a342a; border-radius:3px; color:#ece5d7; font-size:15px; padding:13px; outline:none" style-focus="border-color:#9ecbdb">
+          </label>
+          <label style="display:flex; flex-direction:column; gap:7px">
+            <span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.12em; color:#938976; text-transform:uppercase">Email</span>
+            <input type="email" name="email" required="required" style="background:#191710; border:1px solid #3a342a; border-radius:3px; color:#ece5d7; font-size:15px; padding:13px; outline:none" style-focus="border-color:#9ecbdb">
+          </label>
+          <label style="display:flex; flex-direction:column; gap:7px">
+            <span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.12em; color:#938976; text-transform:uppercase">Message</span>
+            <textarea name="message" rows="5" required="required" style="background:#191710; border:1px solid #3a342a; border-radius:3px; color:#ece5d7; font-size:15px; padding:13px; outline:none; resize:vertical; min-height:120px" style-focus="border-color:#9ecbdb"></textarea>
+          </label>
+          <button type="submit" style="margin-top:4px; font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.14em; text-transform:uppercase; color:#14130f; background:#9ecbdb; border:none; border-radius:4px; padding:16px 18px; cursor:pointer; min-height:52px; transition:background 0.16s ease" style-hover="background:#b6dbe8">Send message</button>
+        </form>
+        </sc-if>
+      </div>
+    </section>
+
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ project }}" hint-placeholder-val="{{ false }}">
+  <article style="animation:riseIn 0.35s ease both">
+
+    <div style="padding:clamp(28px,4vw,52px) clamp(18px,5vw,64px) 0; max-width:1180px; margin:0 auto">
+      <a href="#/work" style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.12em; color:#938976; text-transform:uppercase" style-hover="color:#9ecbdb">← All work</a>
+    </div>
+
+    <header style="padding:clamp(24px,3.5vw,44px) clamp(18px,5vw,64px) clamp(30px,4vw,48px); max-width:1180px; margin:0 auto">
+      <p style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.16em; color:var(--acc,#9ecbdb); text-transform:uppercase; margin:0 0 18px">{{ project.tag }}</p>
+      <h1 style="font-family:'Instrument Serif',Georgia,serif; font-size:clamp(38px,7vw,76px); font-weight:400; letter-spacing:-0.015em; line-height:1.0; margin:0; color:#f4eee2; max-width:17ch; text-wrap:balance">{{ project.title }}</h1>
+      <div style="display:flex; flex-wrap:wrap; gap:10px 26px; margin-top:clamp(18px,2.6vw,28px)">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:0.06em; color:#938976">{{ project.org }}</span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:0.06em; color:#938976">{{ project.date }}</span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:0.06em; color:#938976">{{ project.tools }}</span>
+      </div>
+    </header>
+
+    <div style="padding:0 clamp(18px,5vw,64px); max-width:1180px; margin:0 auto">
+      <sc-for list="{{ heroList }}" as="h" hint-placeholder-count="1">
+        <sc-for list="{{ h.imageList }}" as="hi" hint-placeholder-count="1">
+          <img data-res="{{ hi.res }}" alt="{{ h.title }}" loading="lazy" style="{{ h.mountStyle }}">
+        </sc-for>
+        <sc-for list="{{ h.videoList }}" as="hv" hint-placeholder-count="0">
+          <video data-res="{{ hv.res }}" autoPlay="autoPlay" muted="muted" loop="loop" playsInline="playsInline" preload="auto" tabIndex="-1" style="{{ h.mountStyle }}"></video>
+        </sc-for>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{ project.hasStats }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:clamp(30px,4vw,52px) clamp(18px,5vw,64px) 0; max-width:1180px; margin:0 auto">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap:clamp(12px,1.5vw,18px)">
+        <sc-for list="{{ project.stats }}" as="st" hint-placeholder-count="3">
+          <div style="border:1px solid #353026; border-radius:4px; padding:22px 20px; background:#1e1c16">
+            <p style="font-family:'Instrument Serif',Georgia,serif; font-size:clamp(32px,4vw,46px); font-weight:400; letter-spacing:-0.01em; color:var(--acc,#9ecbdb); margin:0; line-height:1">{{ st.value }}</p>
+            <p style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.06em; color:#938976; margin:12px 0 0; line-height:1.55">{{ st.label }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <div style="padding:clamp(36px,5vw,72px) clamp(18px,5vw,64px) 0; max-width:1180px; margin:0 auto; display:flex; flex-direction:column; gap:clamp(30px,4vw,52px)">
+      <sc-for list="{{ project.blocks }}" as="b" hint-placeholder-count="3">
+        <div style="padding-top:clamp(26px,3.2vw,40px); border-top:1px solid #302c23">
+          <div style="display:flex; flex-wrap:wrap; align-items:baseline; gap:10px 20px">
+            <h2 style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.2em; color:var(--acc,#9ecbdb); text-transform:uppercase; font-weight:400; margin:0">{{ b.heading }}</h2>
+            <span style="flex:1; min-width:40px; height:1px; background:#302c23"></span>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap:clamp(18px,2.6vw,44px); margin-top:clamp(16px,2vw,24px)">
+            <p style="font-size:clamp(16px,1.8vw,19px); line-height:1.66; color:#ddd5c6; margin:0; text-wrap:pretty">{{ b.body }}</p>
+            <sc-if value="{{ b.hasPoints }}" hint-placeholder-val="{{ false }}">
+            <ul style="margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px">
+              <sc-for list="{{ b.points }}" as="pt" hint-placeholder-count="3">
+                <li style="display:flex; gap:12px; font-size:15px; line-height:1.6; color:#bcb2a0; border-left:1px solid #353026; padding-left:14px">
+                  <span>{{ pt }}</span>
+                </li>
+              </sc-for>
+            </ul>
+            </sc-if>
+          </div>
+          <sc-if value="{{ b.hasMedia }}" hint-placeholder-val="{{ true }}">
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap:clamp(14px,1.8vw,22px); margin-top:clamp(20px,2.6vw,32px)">
+            <sc-for list="{{ b.media }}" as="m" hint-placeholder-count="2">
+              <figure style="margin:0; display:flex; flex-direction:column; gap:9px">
+                <button type="button" onClick="{{ m.onOpen }}" aria-label="View larger" style="{{ m.mountStyle }}" style-hover="border-color:#8a7a5e; box-shadow:0 12px 28px rgba(0,0,0,0.5)">
+                  <img data-res="{{ m.res }}" alt="{{ m.caption }}" loading="lazy" style="width:100%; aspect-ratio:4/3; object-fit:contain; padding:2%">
+                </button>
+                <figcaption style="font-family:'JetBrains Mono',monospace; font-size:11.5px; line-height:1.62; letter-spacing:0.02em; color:#9a9180; margin:0">{{ m.caption }}</figcaption>
+              </figure>
+            </sc-for>
+          </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{ project.hasChart }}" hint-placeholder-val="{{ false }}">
+    <section style="padding:clamp(40px,5vw,76px) clamp(18px,5vw,64px) 0; max-width:1180px; margin:0 auto">
+      <div style="padding-top:clamp(24px,3vw,36px); border-top:1px solid #302c23">
+        <h2 style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.2em; color:#938976; text-transform:uppercase; font-weight:400; margin:0 0 22px">Data</h2>
+        <div style="border:1px solid #353026; border-radius:6px; background:#1e1c16; padding:clamp(22px,3vw,38px); box-shadow:0 3px 12px rgba(0,0,0,0.32)">
+          <p style="font-family:'Instrument Serif',Georgia,serif; font-size:clamp(21px,2.5vw,28px); font-weight:400; letter-spacing:-0.01em; color:#f4eee2; margin:0">{{ project.chartTitle }}</p>
+          <p style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.1em; color:#9a9180; margin:8px 0 0; text-transform:uppercase">Nm/deg · ANSYS Static Structural · 600 N·m applied</p>
+
+          <div style="display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:clamp(10px,1.6vw,22px); align-items:end; height:clamp(190px,26vw,270px); margin-top:clamp(26px,3.4vw,40px); border-bottom:1px solid #3a342a; padding-bottom:2px">
+            <sc-for list="{{ project.chartBars }}" as="b" hint-placeholder-count="4">
+              <div style="display:flex; flex-direction:column; justify-content:flex-end; align-items:center; height:100%; gap:9px">
+                <span style="font-family:'Instrument Serif',Georgia,serif; font-size:clamp(19px,2.3vw,27px); color:#f4eee2; line-height:1">{{ b.value }}</span>
+                <div style="{{ b.barStyle }}" data-om-raster="true"></div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:clamp(10px,1.6vw,22px); margin-top:12px">
+            <sc-for list="{{ project.chartBars }}" as="b" hint-placeholder-count="4">
+              <div style="display:flex; flex-direction:column; align-items:center; gap:5px; text-align:center">
+                <span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.05em; color:#b5ab98; line-height:1.4">{{ b.label }}</span>
+                <span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.05em; color:var(--acc,#9ecbdb)">{{ b.delta }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <a href="{{ project.nextHref }}" style="display:block; margin-top:clamp(56px,7vw,110px); border-top:1px solid #302c23; padding:clamp(36px,5vw,64px) clamp(18px,5vw,64px); background:#1b1915; color:#f4eee2; transition:background 0.18s ease" style-hover="background:#232019; color:#f4eee2">
+      <div style="max-width:1180px; margin:0 auto">
+        <p style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.16em; color:#938976; text-transform:uppercase; margin:0 0 14px">Next project</p>
+        <p style="font-family:'Instrument Serif',Georgia,serif; font-size:clamp(28px,4.6vw,52px); font-weight:400; letter-spacing:-0.015em; color:#f4eee2; margin:0; line-height:1.08">{{ project.nextTitle }} <span style="color:var(--acc,#9ecbdb)">→</span></p>
+      </div>
+    </a>
+
+  </article>
+  </sc-if>
+
+  <sc-for list="{{ pdfOverlayList }}" as="pv" hint-placeholder-count="0">
+  <div style="position:fixed; inset:0; z-index:97; background:rgba(18,15,11,0.96); display:flex; flex-direction:column; animation:riseIn 0.2s ease both">
+    <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px clamp(14px,3vw,28px); border-bottom:1px solid #3b352c; flex-shrink:0">
+      <span style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#e4d9c8">{{ pv.label }}</span>
+      <div style="display:flex; align-items:center; gap:10px">
+        <a data-res-link="{{ pv.res }}" target="_blank" rel="noopener" style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; color:#463f33; border:1px solid #4d453a; border-radius:3px; padding:9px 13px" style-hover="color:#fdfaf6; border-color:#8b8270">New tab ↗</a>
+        <button type="button" onClick="{{ closePdf }}" style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; color:#ece5d7; background:#e4d9c8; border:none; border-radius:3px; padding:10px 15px; cursor:pointer; min-height:38px" style-hover="background:#fdfaf6">Close</button>
+      </div>
+    </div>
+    <iframe data-res="{{ pv.res }}" title="{{ pv.label }}" style="flex:1; width:100%; border:none; background:#2b2620"></iframe>
+  </div>
+  </sc-for>
+
+  <sc-for list="{{ lightboxList }}" as="lb" hint-placeholder-count="0">
+  <div onClick="{{ closeLightbox }}" style="position:fixed; inset:0; z-index:90; background:rgba(18,15,11,0.94); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; padding:clamp(18px,4vw,56px); cursor:zoom-out; animation:riseIn 0.2s ease both">
+    <img data-res="{{ lb.res }}" alt="{{ lb.caption }}" loading="lazy" style="width:100%; max-width:1200px; height:auto; max-height:84vh; object-fit:contain; border-radius:4px">
+    <p style="font-family:'JetBrains Mono',monospace; font-size:13px; line-height:1.6; letter-spacing:0.04em; color:#e4d9c8; margin:0; text-align:center; max-width:70ch">{{ lb.caption }}</p>
+    <span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase; color:#8b8270">Click anywhere or press Esc to close</span>
+  </div>
+  </sc-for>
+
+  <footer style="border-top:1px solid #302c23; padding:clamp(28px,3.5vw,40px) clamp(18px,5vw,64px)">
+    <div style="max-width:1280px; margin:0 auto; display:flex; flex-wrap:wrap; gap:14px 30px; align-items:center; justify-content:space-between">
+      <p style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.08em; color:#9a9180; margin:0">© 2026 Danyal Gu · Waterloo, ON</p>
+      <div style="display:flex; flex-wrap:wrap; gap:20px">
+        <a href="mailto:d28gu@uwaterloo.ca" style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.08em; color:#938976" style-hover="color:#9ecbdb">Email</a>
+        <a href="https://www.linkedin.com/in/danyalgu" target="_blank" rel="noopener" style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.08em; color:#938976" style-hover="color:#9ecbdb">LinkedIn</a>
+        <a href="#/" onClick="{{ openResume }}" style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.08em; color:#938976" style-hover="color:#9ecbdb">Resume</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#9ecbdb&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#9ecbdb&quot;,&quot;#a8c9b4&quot;,&quot;#c4b2d6&quot;,&quot;#d9a05b&quot;],&quot;section&quot;:&quot;Theme&quot;},&quot;showContactForm&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;}}">
+class Component extends DCLogic {
+  state = { hash: typeof window !== 'undefined' ? window.location.hash : '', lightbox: null, pdf: null };
+
+  componentDidMount() {
+    this._onHash = () => {
+      const h = window.location.hash;
+      this.setState({ hash: h }, () => this.routeScroll(h));
+    };
+    window.addEventListener('hashchange', this._onHash);
+    // same-hash clicks don't fire hashchange, so re-run the scroll on click too
+    this._onNavClick = (e) => {
+      const a = e.target.closest && e.target.closest('a[href^="#/"]');
+      if (!a) return;
+      const h = a.getAttribute('href');
+      requestAnimationFrame(() => this.routeScroll(h));
+    };
+    document.addEventListener('click', this._onNavClick);
+    this.routeScroll(window.location.hash);
+    this._onKey = (e) => { if (e.key === 'Escape') this.setState({ lightbox: null, pdf: null }); };
+    window.addEventListener('keydown', this._onKey);
+    this.applyAccent();
+    this.syncRes();
+  }
+  componentDidUpdate() { this.applyAccent(); this.syncRes(); }
+  routeScroll(hash) {
+    const key = String(hash || '').replace(/^#\/?/, '').split('/')[0];
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const go = (top) => window.scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' });
+    if (['work', 'about', 'contact'].indexOf(key) >= 0) {
+      const el = document.getElementById(key);
+      if (el) {
+        const nav = document.querySelector('nav');
+        const offset = nav ? nav.getBoundingClientRect().height : 0;
+        go(el.getBoundingClientRect().top + window.pageYOffset - offset + 1);
+        return;
+      }
+    }
+    go(0);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('hashchange', this._onHash);
+    document.removeEventListener('click', this._onNavClick);
+    window.removeEventListener('keydown', this._onKey);
+  }
+
+  applyAccent() {
+    document.documentElement.style.setProperty('--acc', this.props.accent || '#9ecbdb');
+  }
+
+  syncRes() {
+    const map = (typeof window !== 'undefined' && window.__resources) || null;
+    const resolve = (id) => (map && map[id]) || this.fallback(id);
+    document.querySelectorAll('[data-res]').forEach(el => {
+      const id = el.getAttribute('data-res');
+      if (!id) return;
+      const url = resolve(id);
+      if (url && el.getAttribute('src') !== url) el.setAttribute('src', url);
+    });
+    document.querySelectorAll('[data-res-link]').forEach(el => {
+      const id = el.getAttribute('data-res-link');
+      const url = resolve(id);
+      if (url && el.getAttribute('href') !== url) el.setAttribute('href', url);
+    });
+    // In a bundled page __resources may be injected after mount; keep retrying
+    // until it lands, then re-point every element at its blob URL.
+    if (!map) this.watchRes();
+  }
+
+  watchRes() {
+    if (this._watching) return;
+    this._watching = true;
+    let tries = 0;
+    const tick = () => {
+      if (window.__resources) {
+        this._watching = false;
+        this.syncRes();
+        return;
+      }
+      if (++tries > 120) { this._watching = false; return; }
+      setTimeout(tick, 100);
+    };
+    setTimeout(tick, 100);
+  }
+
+  fallback(id) { return this._paths ? this._paths[id] : null; }
+
+  res(path) {
+    const map = (typeof window !== 'undefined' && window.__resources) || {};
+    const id = String(path).replace(/^images\//, '').replace(/\.(jpg|png)$/, '');
+    return map[id] || path;
+  }
+
+  doc(id, path) {
+    const map = (typeof window !== 'undefined' && window.__resources) || {};
+    return map[id] || path;
+  }
+
+  paths() {
+    if (this._paths) return this._paths;
+    const t = {
+      'chassis-loop': 'media/chassis-loop.mp4',
+      'resume-pdf': 'docs/Danyal-Gu-Resume.pdf',
+      'portfolio-pdf': 'docs/Danyal-Gu-Portfolio.pdf'
+    };
+    ['chassis-deform-combined','chassis-deform-baseline','chassis-load','chassis-accumulator','chassis-mesh-panels','chassis-mesh-frame','gantry-hero','gantry-frame-cad','gantry-hopper-cad','gantry-annotated','v6-result-new'].forEach(k => { t[k] = 'images/' + k + '.jpg'; });
+    ['v6-what','v6-how-1','v6-how-2','carelink-what','carelink-how','carelink-result'].forEach(k => { t[k] = 'images/' + k + '.jpg'; });
+    this._paths = t;
+    return t;
+  }
+
+  resId(path) { return String(path).replace(/^(images|media|docs)\//, '').replace(/\.(jpg|png|mp4|pdf)$/, ''); }
+
+  data() {
+    return [
+      {
+        slug: 'chassis-torsional-stiffness',
+        darkMount: true,
+        coverVideo: 'media/chassis-loop.mp4',
+        title: 'Chassis Torsional Stiffness Analysis',
+        tag: 'FSAE · FEA',
+        org: 'UW Formula SAE',
+        date: 'May – Aug 2026',
+        tools: 'ANSYS Static Structural · SolidWorks',
+        meta: 'UW Formula SAE · 2026',
+        blurb: 'Four frame configurations modelled in ANSYS to find where the stiffness actually comes from, plus a fixture to prove it on the rig.',
+        cover: 'images/chassis-deform-combined.jpg',
+        chart: {
+          title: 'Torsional stiffness by frame configuration',
+          axisMax: 3000,
+          bars: [
+            { label: 'Baseline', value: '2,031', delta: '—', pct: 67.7, lead: false },
+            { label: '+ AIP', value: '2,130', delta: '+4.9%', pct: 71.0, lead: false },
+            { label: '+ Accumulator', value: '2,551', delta: '+25.6%', pct: 85.0, lead: false },
+            { label: '+ AIP + Accum.', value: '2,660', delta: '+31.0%', pct: 88.7, lead: true }
+          ]
+        },
+        stats: [
+          { value: '2660', label: 'Nm/deg — combined configuration' },
+          { value: '+31%', label: 'Torsional stiffness over baseline frame' },
+          { value: '+25.6%', label: 'Contribution from the accumulator alone' }
+        ],
+        blocks: [
+          { heading: 'What', body: 'Evaluated torsional stiffness across four frame configurations (baseline, with AIP, with accumulator, and combined) to guide stiffness to weight tradeoffs on the 2026 frame, and designed a physical fixture so the model can be correlated against real world rig testing.' },
+          { heading: 'How', body: 'Built a finite element beam spaceframe model in ANSYS Static Structural, using spherical joints to replicate suspension kinematics under a 600 N·m opposing moment.', points: [
+            'Added accumulator and AIP geometry to isolate each structure\u2019s contribution to overall frame stiffness',
+            'Designed a rigid test fixture that couples the chassis to the torsion rig, transferring pure torque without introducing compliance error',
+            'Compared max deflection across configurations: 4.49 mm baseline vs 3.21 mm combined'
+          ] },
+          { heading: 'Results', body: 'The combined configuration reached 2660 Nm/deg, a 31% improvement over baseline, with the accumulator alone accounting for 25.6% added stiffness. The methodology is now being extended to inform early stage design decisions on the in development 2027 chassis.' }
+        ],
+        gallery: [
+          { src: 'images/chassis-mesh-frame.jpg', caption: 'Beam element mesh with edge sizing across the bare spaceframe' },
+          { src: 'images/chassis-mesh-panels.jpg', caption: 'Meshed model with AIP and accumulator shell geometry included' },
+          { src: 'images/chassis-load.jpg', caption: 'Load case: 600 N·m opposing moment applied at the front suspension pickups' },
+          { src: 'images/chassis-accumulator.jpg', caption: 'Accumulator and AIP solids isolated inside the frame wireframe' },
+          { src: 'images/chassis-deform-baseline.jpg', caption: 'Baseline frame at 4.49 mm peak total deformation' },
+          { src: 'images/chassis-deform-combined.jpg', caption: 'Frame, AIP and accumulator at 3.21 mm peak, a 29% drop in deflection' }
+        ]
+      },
+      {
+        slug: 'gantry-checker-robot',
+        title: 'Gantry-Driven Checker Robot',
+        tag: 'SCHOOL PROJECT · MECHATRONICS',
+        org: 'University of Waterloo',
+        date: 'Jan – Apr 2026',
+        tools: 'SolidWorks · 3D Printing',
+        meta: 'University of Waterloo · 2026',
+        blurb: 'An autonomous gantry that sets up a full checkers board on its own.',
+        cover: 'images/gantry-hero.jpg',
+        stats: [
+          { value: '24 / 24', label: 'Checkers placed with no human intervention' },
+          { value: '94%', label: 'Colour detection accuracy across 10 trials' },
+          { value: '90%', label: 'Mechanical reliability across 10 trials' }
+        ],
+        blocks: [
+          { heading: 'What', body: 'A fully autonomous gantry robot that sets up a checkers board, placing all 24 pieces without human intervention. I owned the complete mechanical CAD and led physical assembly of the prototype.' },
+          { heading: 'How', body: 'Designed the whole assembly in SolidWorks, with material selection driven by what each part actually has to survive.', points: [
+            'Gravity-fed hopper feeding a rotating gate dispenser, driven through a custom 90° bevel gear transmission',
+            '3-axis rack and pinion gantry for board-plane positioning',
+            'PETG for structural racks, carbon fiber for high-stress pinions, PLA for tolerance-critical sensor and gear housings',
+            'Bevel gear housing printed in-house rather than purchased, to hold tight gear mesh tolerances'
+          ] },
+          { heading: 'Results', body: 'Hit 94% colour detection accuracy and 90% mechanical reliability over 10 trials. Placement accuracy came in at 75%, traced to deflection in the gantry frame under load rather than to the control system. The proposed structural fix is metal guide rods along the X and Y axes.', points: [
+            'Distance sensor and bumper enclosures were printed to keep sensor alignment repeatable between runs',
+            'Failures clustered at the far end of the X axis travel, where unsupported rack span is longest',
+            'Next revision replaces the printed rails with metal guide rods and shortens the unsupported span'
+          ] }
+        ],
+        gallery: [
+          { src: 'images/gantry-hero.jpg', caption: 'Finished prototype: wooden outer frame, 3 axis gantry, dispenser hopper at the front right' },
+          { src: 'images/gantry-frame-cad.jpg', caption: 'SolidWorks assembly of the gantry, showing the rack and pinion drives on all three axes' },
+          { src: 'images/gantry-hopper-cad.jpg', caption: 'Dispenser underside: motor enclosure, 90° bevel gear transmission and LED enclosure' },
+          { src: 'images/gantry-annotated.jpg', caption: 'Top down view of the running robot with the distance sensor and bumper enclosures called out' }
+        ]
+      },
+      {
+        slug: 'v6-engine',
+        title: 'Hand-Crank V6 Engine Model',
+        tag: 'PERSONAL · DFMA',
+        org: 'Personal Project',
+        date: 'Dec 2025 – Jan 2026',
+        tools: 'SolidWorks · DFMA · 3D Printing',
+        meta: 'Personal project · 2026',
+        blurb: 'A fully 3D printed V6 with real 120° crank phasing that hand cranks smoothly, with zero interferences through a full rotation.',
+        cover: 'images/v6-result-new.jpg',
+        stats: [
+          { value: '120°', label: 'Crankshaft phasing for a realistic firing order' },
+          { value: '4-stroke', label: 'Accurate kinematics through the full cycle' },
+          { value: 'Zero', label: 'Interferences through a complete rotation' }
+        ],
+        blocks: [
+          { heading: 'What', body: 'A mechanically functional V6 assembly designed from scratch, demonstrating accurate four stroke kinematics and real engine geometry, hand cranked and fully 3D printed.' },
+          { heading: 'How', body: 'Modelled in SolidWorks with DFMA principles applied throughout so every part, mounts included, could be printed and assembled without post-processing.', points: [
+            'Engineered 120° crankshaft phasing to produce a realistic firing order',
+            'Optimized the rod-to-stroke ratio to minimize piston side loading',
+            'Sized clearances around printer tolerance so the assembly turns freely straight off the bed'
+          ] },
+          { heading: 'Results', body: 'Achieved interference-free rotation with accurate piston timing, validating the geometric tolerance calculations. The finished model hand-cranks smoothly without binding.' }
+        ],
+        gallery: [
+          { src: 'images/v6-what.jpg', caption: 'Assembled crank and piston set with the printed housing' },
+          { src: 'images/v6-how-1.jpg', caption: 'Crankshaft phasing layout' },
+          { src: 'images/v6-how-2.jpg', caption: 'Piston geometry optimized to minimize side loading' },
+          { src: 'images/v6-result-new.jpg', caption: 'Finished housing with the hand crank fitted, printed and assembled without post processing' }
+        ]
+      }
+      ,
+      {
+        slug: 'carelink',
+        title: 'CareLink Rehabilitation Wearable',
+        tag: 'HACKATHON · WEARABLE',
+        org: 'HealthTech Innovation Hackathon 2026',
+        date: 'Feb 2026',
+        tools: 'SolidWorks · ESP32 · Sensor Fusion',
+        meta: 'HealthTech Hackathon · 2026',
+        blurb: 'A sub $25 rehab wearable for stroke survivors. IMU and computer vision fused into real time exercise correction, built in 48 hours.',
+        cover: 'images/carelink-what.jpg',
+        stats: [
+          { value: '< $25', label: 'Bill of materials per unit' },
+          { value: '48 hrs', label: 'From concept to working hardware prototype' },
+          { value: 'IMU + CV', label: 'Hybrid sensor fusion for exercise correction' }
+        ],
+        blocks: [
+          { heading: 'What', body: 'A sub $25 remote rehabilitation wearable for stroke survivors that fuses IMU and computer vision data to give real time, unsupervised exercise correction at home.' },
+          { heading: 'How', body: 'Engineered a Class I medical compliant housing for the ESP32 / MPU6050 array in SolidWorks, designed around the reality that users have limited fine motor control.', points: [
+            'Large physical calibration button sized for one handed, low dexterity use',
+            'Soft touch EVA foam lining and a strapping system that can be fitted single handed',
+            'Sensor fusion falls back to IMU tracking when the camera view is occluded'
+          ] },
+          { heading: 'Results', body: 'Delivered a fully functional hardware prototype within 48 hours that successfully filtered motion noise and maintained tracking accuracy through visual occlusion events.' }
+        ],
+        gallery: [
+          { src: 'images/carelink-what.jpg', caption: 'Wearable sensor gloves with the printed IMU enclosures, worn during testing' },
+          { src: 'images/carelink-how.jpg', caption: 'Exploded SolidWorks view of the enclosure, calibration button and lid' },
+          { src: 'images/carelink-result.jpg', caption: 'Live exercise correction feedback with pose tracking during a test session' }
+        ]
+      }
+    ];
+  }
+
+  renderVals() {
+    this.paths();
+    const all = this.data();
+    const hash = (this.state.hash || '').replace(/^#\/?/, '');
+    const parts = hash.split('/');
+    const slug = parts[0] === 'project' ? parts[1] : null;
+    const idx = all.findIndex(p => p.slug === slug);
+
+    const darkPanel = 'position:relative; aspect-ratio:16/10; overflow:hidden; border-right:1px solid #302c23; background:radial-gradient(120% 120% at 50% 0%, #33302b 0%, #201d19 100%)';
+    const litePanel = 'position:relative; aspect-ratio:16/10; overflow:hidden; border-right:1px solid #302c23; background:radial-gradient(120% 120% at 50% 0%, #33302b 0%, #201d19 100%)';
+    const darkVig = 'position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,0.16) 74%, rgba(0,0,0,0.42) 100%)';
+    const liteVig = 'position:absolute; inset:0; pointer-events:none';
+    const btnBase = 'display:block; width:100%; padding:0; border:1px solid #463f33; border-radius:6px; overflow:hidden; cursor:zoom-in; transition:border-color 0.18s ease, box-shadow 0.18s ease; background:';
+    const heroBase = 'width:100%; max-width:820px; margin:0 auto; aspect-ratio:16/9; object-fit:contain; padding:2%; border:1px solid #463f33; border-radius:6px; background:';
+
+    const projects = all.map((p, i) => ({
+      panelStyle: p.darkMount ? darkPanel : litePanel,
+      tagStyle: 'position:absolute; top:14px; left:14px; font-family:\'JetBrains Mono\',monospace; font-size:10px; letter-spacing:0.12em; color:#e4d9c8; background:rgba(20,19,15,0.9); border:1px solid #4a4336; padding:6px 10px; border-radius:3px',
+      coverImageList: p.coverVideo ? [] : [{ res: this.resId(p.cover) }],
+      coverVideoList: p.coverVideo ? [{ res: 'chassis-loop' }] : [],
+      vignetteStyle: p.darkMount ? darkVig : liteVig,
+      title: p.title, tag: p.tag, meta: p.meta, cover: this.res(p.cover), blurb: p.blurb,
+      num: String(i + 1).padStart(2, '0'),
+      href: '#/project/' + p.slug
+    }));
+
+    let project = null;
+    if (idx >= 0) {
+      const p = all[idx];
+      const nxt = all[(idx + 1) % all.length];
+      project = Object.assign({}, p, {
+        cover: this.res(p.cover),
+        gallery: p.gallery.map(g => ({ res: this.resId(g.src), caption: g.caption })),
+        hasStats: !!(p.stats && p.stats.length),
+        hasChart: !!p.chart,
+        chartTitle: p.chart ? p.chart.title : '',
+        chartBars: p.chart ? p.chart.bars.map(b => Object.assign({}, b, { barStyle: 'width:100%; max-width:78px; height:' + b.pct + '%; border-radius:3px 3px 0 0; background:' + (b.lead ? 'linear-gradient(180deg,#9ecbdb 0%,#9ecbdb3d 100%)' : 'linear-gradient(180deg,#4f4839 0%,#4f483942 100%)') })) : [],
+        blocks: (() => {
+          const g = p.gallery.map(x => ({ res: this.resId(x.src), caption: x.caption }));
+          const n = p.blocks.length;
+          const per = Math.floor(g.length / n);
+          const extra = g.length % n;
+          let i = 0;
+          return p.blocks.map((b, bi) => {
+            const take = per + (bi < extra ? 1 : 0);
+            const media = g.slice(i, i + take).map(m => Object.assign({}, m, {
+              mountStyle: btnBase + 'radial-gradient(120% 120% at 50% 0%, #33302b 0%, #201d19 100%)',
+              onOpen: () => this.setState({ lightbox: { res: m.res, caption: m.caption } })
+            }));
+            i += take;
+            return Object.assign({}, b, {
+              hasPoints: !!(b.points && b.points.length),
+              media,
+              hasMedia: media.length > 0
+            });
+          });
+        })(),
+        nextTitle: nxt.title,
+        nextHref: '#/project/' + nxt.slug
+      });
+    }
+
+    return {
+      lightboxList: this.state.lightbox ? [this.state.lightbox] : [],
+      pdfOverlayList: this.state.pdf ? [this.state.pdf] : [],
+      openResume: (e) => { e.preventDefault(); this.setState({ pdf: { res: 'resume-pdf', label: 'Resume — Danyal Gu' } }); },
+      openPortfolio: (e) => { e.preventDefault(); this.setState({ pdf: { res: 'portfolio-pdf', label: 'Portfolio — Danyal Gu' } }); },
+      closePdf: () => this.setState({ pdf: null }),
+      closeLightbox: () => this.setState({ lightbox: null }),
+      isHome: !project,
+      project,
+      heroList: project ? [{
+        title: project.title,
+        imageList: project.coverVideo ? [] : [{ res: this.resId(project.cover) }],
+        videoList: project.coverVideo ? [{ res: 'chassis-loop' }] : [],
+        mountStyle: heroBase + 'radial-gradient(120% 120% at 50% 0%, #33302b 0%, #201d19 100%)'
+      }] : [],
+      projects,
+      showContactForm: this.props.showContactForm !== false,
+    };
+  }
+}
+</script>
+</body>
+</html>
