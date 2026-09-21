@@ -26,6 +26,8 @@
 <meta name="ext-resource-dependency" content="images/v6-how-1.jpg" data-resource-id="v6-how-1">
 <meta name="ext-resource-dependency" content="images/v6-how-2.jpg" data-resource-id="v6-how-2">
 <meta name="ext-resource-dependency" content="images/v6-result-new.jpg" data-resource-id="v6-result-new">
+<meta name="ext-resource-dependency" content="images/chassis-probes.jpg" data-resource-id="chassis-probes">
+<meta name="ext-resource-dependency" content="images/chassis-datasheet.jpg" data-resource-id="chassis-datasheet">
 <meta name="ext-resource-dependency" content="images/carelink-what.jpg" data-resource-id="carelink-what">
 <meta name="ext-resource-dependency" content="images/carelink-how.jpg" data-resource-id="carelink-how">
 <meta name="ext-resource-dependency" content="images/carelink-result.jpg" data-resource-id="carelink-result">
@@ -261,6 +263,58 @@
       </sc-for>
     </div>
 
+    <sc-for list="{{ project.methodList }}" as="mt" hint-placeholder-count="0">
+    <section style="padding:clamp(40px,5vw,76px) clamp(18px,5vw,64px) 0; max-width:1180px; margin:0 auto">
+      <div style="padding-top:clamp(24px,3vw,36px); border-top:1px solid #302c23">
+        <div style="display:flex; flex-wrap:wrap; align-items:baseline; gap:10px 20px">
+          <h2 style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.2em; color:var(--acc,#9ecbdb); text-transform:uppercase; font-weight:400; margin:0">Method</h2>
+          <span style="flex:1; min-width:40px; height:1px; background:#302c23"></span>
+        </div>
+        <p style="font-size:clamp(16px,1.8vw,19px); line-height:1.66; color:#ddd5c6; margin:clamp(16px,2vw,24px) 0 0; max-width:66ch; text-wrap:pretty">Torsional stiffness is not read directly out of ANSYS. It is derived from vertical displacement at four probe nodes, converted to a twist angle, then divided into the applied moment. Here is the exact path from raw output to the final number.</p>
+
+        <figure style="margin:clamp(22px,3vw,34px) 0 0; display:flex; flex-direction:column; gap:10px">
+          <button type="button" onClick="{{ mt.onProbe }}" aria-label="View larger" style="display:block; width:100%; padding:0; border:1px solid #463f33; border-radius:6px; overflow:hidden; background:radial-gradient(120% 120% at 50% 0%, #33302b 0%, #201d19 100%); cursor:zoom-in; transition:border-color 0.18s ease, box-shadow 0.18s ease" style-hover="border-color:#8a7a5e; box-shadow:0 12px 28px rgba(0,0,0,0.5)">
+            <img src="{{ mt.probeImg }}" alt="Probe placement" loading="lazy" style="width:100%; height:auto; display:block">
+          </button>
+          <figcaption style="font-family: 'JetBrains Mono',monospace; font-size: 11.5px; line-height: 1.62; letter-spacing: 0.02em; color: #9a9180; margin: 0; max-width: 74ch; width: 540px; height: 61px">{{ mt.probeCaption }}</figcaption>
+        </figure>
+
+        <figure style="margin:clamp(22px,3vw,34px) 0 0; display:flex; flex-direction:column; gap:10px">
+          <button type="button" onClick="{{ mt.onSheet }}" aria-label="View larger" style="display:block; width:100%; padding:0; border:1px solid #463f33; border-radius:6px; overflow:hidden; background:#ffffff; cursor:zoom-in; transition:border-color 0.18s ease, box-shadow 0.18s ease" style-hover="border-color:#8a7a5e; box-shadow:0 12px 28px rgba(0,0,0,0.5)">
+            <img src="{{ mt.sheetImg }}" alt="Results sheet" loading="lazy" style="width:100%; height:auto; display:block">
+          </button>
+          <figcaption style="font-family:'JetBrains Mono',monospace; font-size:11.5px; line-height:1.62; letter-spacing:0.02em; color:#9a9180; margin:0; max-width:74ch">{{ mt.sheetCaption }}</figcaption>
+        </figure>
+
+        <ol style="margin:clamp(26px,3.4vw,42px) 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:clamp(12px,1.6vw,18px)">
+          <sc-for list="{{ mt.steps }}" as="st" hint-placeholder-count="4">
+            <li style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap:clamp(14px,2.2vw,34px); border:1px solid #302c23; border-radius:6px; background:#1b1915; padding:clamp(18px,2.4vw,28px)">
+              <div>
+                <p style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.16em; color:var(--acc,#9ecbdb); margin:0 0 10px">{{ st.n }}</p>
+                <p style="font-size:clamp(16px,1.8vw,19px); line-height:1.4; color:#f4eee2; margin:0 0 14px; font-weight:500">{{ st.title }}</p>
+                <p style="font-family:'JetBrains Mono',monospace; font-size:clamp(12.5px,1.5vw,15px); line-height:1.6; letter-spacing:0.01em; color:var(--acc,#9ecbdb); margin:0; border:1px solid #3a342a; border-radius:4px; background:#14130f; padding:12px 14px; overflow-wrap:break-word">{{ st.formula }}</p>
+              </div>
+              <p style="font-size:15px; line-height:1.65; color:#bcb2a0; margin:0; text-wrap:pretty">{{ st.body }}</p>
+            </li>
+          </sc-for>
+        </ol>
+
+        <div style="margin-top:clamp(20px,2.6vw,30px); border:1px solid #3a342a; border-radius:6px; background:#1e1c16; padding:clamp(18px,2.4vw,28px)">
+          <p style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase; color:var(--acc,#9ecbdb); margin:0 0 16px">{{ mt.workedLabel }}</p>
+          <div style="display:flex; flex-direction:column; gap:0">
+            <sc-for list="{{ mt.workedRows }}" as="r" hint-placeholder-count="8">
+              <div style="display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:8px 20px; padding:10px 0; border-top:1px solid #2b2720">
+                <span style="font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.02em; color:#bcb2a0">{{ r.k }}</span>
+                <span style="font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.02em; color:#f4eee2">{{ r.v }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    </sc-for>
+
     <sc-if value="{{ project.hasChart }}" hint-placeholder-val="{{ false }}">
     <section style="padding:clamp(40px,5vw,76px) clamp(18px,5vw,64px) 0; max-width:1180px; margin:0 auto">
       <div style="padding-top:clamp(24px,3vw,36px); border-top:1px solid #302c23">
@@ -442,7 +496,7 @@ class Component extends DCLogic {
       'portfolio-pdf': 'docs/Danyal-Gu-Portfolio.pdf'
     };
     ['chassis-deform-combined','chassis-deform-baseline','chassis-load','chassis-accumulator','chassis-mesh-panels','chassis-mesh-frame','gantry-hero','gantry-frame-cad','gantry-hopper-cad','gantry-annotated','v6-result-new'].forEach(k => { t[k] = 'images/' + k + '.jpg'; });
-    ['v6-what','v6-how-1','v6-how-2','carelink-what','carelink-how','carelink-result'].forEach(k => { t[k] = 'images/' + k + '.jpg'; });
+    ['v6-what','v6-how-1','v6-how-2','carelink-what','carelink-how','carelink-result','chassis-probes','chassis-datasheet'].forEach(k => { t[k] = 'images/' + k + '.jpg'; });
     this._paths = t;
     return t;
   }
@@ -463,6 +517,32 @@ class Component extends DCLogic {
         meta: 'UW Formula SAE · 2026',
         blurb: 'Four frame configurations modelled in ANSYS to find where the stiffness actually comes from, plus a fixture to prove it on the rig.',
         cover: 'images/chassis-deform-combined.jpg',
+        method: {
+          probeImg: 'images/chassis-probes.jpg',
+          probeCaption: 'Probe placement on the 2026 frame. The four red probes are the set I used: two inner (Z2, Z3) and two outer (Z1, Z4). The two green probes are the locations last year\u2019s simulation used.',
+          sheetImg: 'images/chassis-datasheet.jpg',
+          sheetCaption: 'Results sheet: raw Z displacements per configuration, the three derived angles, and the resulting torsional stiffness values.',
+          steps: [
+            { n: '01', title: 'Read vertical displacement at four probes', formula: '\u0394Z\u2081, \u0394Z\u2082, \u0394Z\u2083, \u0394Z\u2084', body: 'ANSYS reports directional (Z) deformation at each probe node under the applied moment. Z1 and Z4 sit on the outer pair, Z2 and Z3 on the inner pair, so each pair straddles the chassis centreline symmetrically.' },
+            { n: '02', title: 'Convert each pair to a twist angle', formula: '\u03B8 = arctan( (\u0394Z_left + \u0394Z_right) / D )', body: 'Under an opposing moment the two sides of a pair deflect in opposite directions, and ANSYS reports magnitudes, so the total rise across the pair is the sum of the two readings. The lateral distance between the probes is the run. Inverse tangent of rise over run gives the twist angle at that station. D\u2081 = 1117.7 mm for the outer pair, D\u2082 = 375 mm for the inner pair.' },
+            { n: '03', title: 'Turn each station into a stiffness', formula: 'K_station = T / \u03B8_station', body: 'Torsional stiffness is applied torque over the resulting twist, so each probe pair yields its own stiffness value: one from the inner station, one from the outer. T = 600 N\u00B7m is held constant across all four configurations, so the only variable is \u03B8.' },
+            { n: '04', title: 'Average the two stations', formula: 'K = (K_inner + K_outer) / 2', body: 'Reporting both an inner and an outer station guards against one pair sitting on a locally soft node. The published figure is the mean of the two stiffnesses, which is what makes the four configurations directly comparable.' }
+          ],
+          worked: {
+            label: 'Worked example: frame + AIP + accumulator',
+            rows: [
+              { k: '\u0394Z\u2081 (FR-UR)', v: '2.7981 mm' },
+              { k: '\u0394Z\u2082 (FR-F)', v: '0.6754 mm' },
+              { k: '\u0394Z\u2083 (FL-F)', v: '0.56006 mm' },
+              { k: '\u0394Z\u2084 (FL-UR)', v: '2.6697 mm' },
+              { k: '\u03B8 inner = arctan((\u0394Z\u2082+\u0394Z\u2083) / 375)', v: '0.18876\u00B0' },
+              { k: '\u03B8 outer = arctan((\u0394Z\u2081+\u0394Z\u2084) / 1117.7)', v: '0.28029\u00B0' },
+              { k: 'K inner = 600 / 0.18876', v: '3178.6 Nm/deg' },
+              { k: 'K outer = 600 / 0.28029', v: '2140.6 Nm/deg' },
+              { k: 'K = (3178.6 + 2140.6) / 2', v: '2660 Nm/deg' }
+            ]
+          }
+        },
         chart: {
           title: 'Torsional stiffness by frame configuration',
           axisMax: 3000,
@@ -632,6 +712,17 @@ class Component extends DCLogic {
         gallery: p.gallery.map(g => ({ res: this.resId(g.src), caption: g.caption })),
         hasStats: !!(p.stats && p.stats.length),
         hasChart: !!p.chart,
+        methodList: p.method ? [{
+          probeImg: this.res(p.method.probeImg),
+          probeCaption: p.method.probeCaption,
+          sheetImg: this.res(p.method.sheetImg),
+          sheetCaption: p.method.sheetCaption,
+          steps: p.method.steps,
+          workedLabel: p.method.worked.label,
+          workedRows: p.method.worked.rows,
+          onProbe: () => this.setState({ lightbox: { src: this.res(p.method.probeImg), caption: p.method.probeCaption } }),
+          onSheet: () => this.setState({ lightbox: { src: this.res(p.method.sheetImg), caption: p.method.sheetCaption } })
+        }] : [],
         chartTitle: p.chart ? p.chart.title : '',
         chartBars: p.chart ? p.chart.bars.map(b => Object.assign({}, b, { barStyle: 'width:100%; max-width:78px; height:' + b.pct + '%; border-radius:3px 3px 0 0; background:' + (b.lead ? 'linear-gradient(180deg,#9ecbdb 0%,#9ecbdb3d 100%)' : 'linear-gradient(180deg,#4f4839 0%,#4f483942 100%)') })) : [],
         blocks: (() => {
