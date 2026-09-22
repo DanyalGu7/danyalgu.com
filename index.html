@@ -267,7 +267,7 @@
     <section style="padding:clamp(40px,5vw,76px) clamp(18px,5vw,64px) 0; max-width:1180px; margin:0 auto">
       <div style="padding-top:clamp(24px,3vw,36px); border-top:1px solid #302c23">
         <div style="display:flex; flex-wrap:wrap; align-items:baseline; gap:10px 20px">
-          <h2 style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.2em; color:var(--acc,#9ecbdb); text-transform:uppercase; font-weight:400; margin:0">Method</h2>
+          <h2 style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.2em; color:var(--acc,#9ecbdb); text-transform:uppercase; font-weight:400; margin:0">Torsional Stiffness Number</h2>
           <span style="flex:1; min-width:40px; height:1px; background:#302c23"></span>
         </div>
         <p style="font-size:clamp(16px,1.8vw,19px); line-height:1.66; color:#ddd5c6; margin:clamp(16px,2vw,24px) 0 0; max-width:66ch; text-wrap:pretty">Torsional stiffness is not read directly out of ANSYS. It is derived from vertical displacement at four probe nodes, converted to a twist angle, then divided into the applied moment. Here is the exact path from raw output to the final number.</p>
@@ -276,7 +276,7 @@
           <button type="button" onClick="{{ mt.onProbe }}" aria-label="View larger" style="display:block; width:100%; padding:0; border:1px solid #463f33; border-radius:6px; overflow:hidden; background:radial-gradient(120% 120% at 50% 0%, #33302b 0%, #201d19 100%); cursor:zoom-in; transition:border-color 0.18s ease, box-shadow 0.18s ease" style-hover="border-color:#8a7a5e; box-shadow:0 12px 28px rgba(0,0,0,0.5)">
             <img src="{{ mt.probeImg }}" alt="Probe placement" loading="lazy" style="width:100%; height:auto; display:block">
           </button>
-          <figcaption style="font-family: 'JetBrains Mono',monospace; font-size: 11.5px; line-height: 1.62; letter-spacing: 0.02em; color: #9a9180; margin: 0; max-width: 74ch; width: 540px; height: 61px">{{ mt.probeCaption }}</figcaption>
+          
         </figure>
 
         <figure style="margin:clamp(22px,3vw,34px) 0 0; display:flex; flex-direction:column; gap:10px">
@@ -285,31 +285,6 @@
           </button>
           <figcaption style="font-family:'JetBrains Mono',monospace; font-size:11.5px; line-height:1.62; letter-spacing:0.02em; color:#9a9180; margin:0; max-width:74ch">{{ mt.sheetCaption }}</figcaption>
         </figure>
-
-        <ol style="margin:clamp(26px,3.4vw,42px) 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:clamp(12px,1.6vw,18px)">
-          <sc-for list="{{ mt.steps }}" as="st" hint-placeholder-count="4">
-            <li style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap:clamp(14px,2.2vw,34px); border:1px solid #302c23; border-radius:6px; background:#1b1915; padding:clamp(18px,2.4vw,28px)">
-              <div>
-                <p style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.16em; color:var(--acc,#9ecbdb); margin:0 0 10px">{{ st.n }}</p>
-                <p style="font-size:clamp(16px,1.8vw,19px); line-height:1.4; color:#f4eee2; margin:0 0 14px; font-weight:500">{{ st.title }}</p>
-                <p style="font-family:'JetBrains Mono',monospace; font-size:clamp(12.5px,1.5vw,15px); line-height:1.6; letter-spacing:0.01em; color:var(--acc,#9ecbdb); margin:0; border:1px solid #3a342a; border-radius:4px; background:#14130f; padding:12px 14px; overflow-wrap:break-word">{{ st.formula }}</p>
-              </div>
-              <p style="font-size:15px; line-height:1.65; color:#bcb2a0; margin:0; text-wrap:pretty">{{ st.body }}</p>
-            </li>
-          </sc-for>
-        </ol>
-
-        <div style="margin-top:clamp(20px,2.6vw,30px); border:1px solid #3a342a; border-radius:6px; background:#1e1c16; padding:clamp(18px,2.4vw,28px)">
-          <p style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase; color:var(--acc,#9ecbdb); margin:0 0 16px">{{ mt.workedLabel }}</p>
-          <div style="display:flex; flex-direction:column; gap:0">
-            <sc-for list="{{ mt.workedRows }}" as="r" hint-placeholder-count="8">
-              <div style="display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:8px 20px; padding:10px 0; border-top:1px solid #2b2720">
-                <span style="font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.02em; color:#bcb2a0">{{ r.k }}</span>
-                <span style="font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.02em; color:#f4eee2">{{ r.v }}</span>
-              </div>
-            </sc-for>
-          </div>
-        </div>
 
       </div>
     </section>
@@ -519,7 +494,7 @@ class Component extends DCLogic {
         cover: 'images/chassis-deform-combined.jpg',
         method: {
           probeImg: 'images/chassis-probes.jpg',
-          probeCaption: 'Probe placement on the 2026 frame. The four red probes are the set I used: two inner (Z2, Z3) and two outer (Z1, Z4). The two green probes are the locations last year\u2019s simulation used.',
+          probeCaption: 'Probe placement on the 2026 frame: two outer probes (Z1, Z4) and two inner probes (Z2, Z3). Each pair\u2019s Z displacement gives a twist angle through inverse tangent, which feeds back into the torsional stiffness.',
           sheetImg: 'images/chassis-datasheet.jpg',
           sheetCaption: 'Results sheet: raw Z displacements per configuration, the three derived angles, and the resulting torsional stiffness values.',
           steps: [
